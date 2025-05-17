@@ -49,7 +49,7 @@ const petrolSchema = new mongoose.Schema({
   litre: { type: String, required: true },
   kmDriven: { type: Number, required: true },
   cost: { type: String, required: true },
-  costPerLitre: { type: Date, default: Date.now },
+  costPerLitre: { type: Number, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
