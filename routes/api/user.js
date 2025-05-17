@@ -111,3 +111,49 @@ router.get("/user/:username/:category", async (req, res) => {
 });
 
 module.exports = router;
+
+router.get("/user/:username/:category/filter", async (req, res) => {
+  const { username, category } = req.params;
+  const { date } = req.query;
+
+  const validCategories = [
+    "vegetablesFruits",
+    "milk",
+    "kiranaStore",
+    "fastFood",
+    "homeNeeds",
+    "petrol",
+    "houseRent",
+    "wifi",
+    "outing",
+  ];
+
+  if (!validCategories.includes(category)) {
+    return res.status(400).json({ msg: "Invalid category name" });
+  }
+
+  if (!date) {
+    return res.status(400).json({ msg: "Date is required" });
+  }
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ msg: "User not found" });
+
+    const selectedDate = new Date(date);
+    const nextDate = new Date(selectedDate);
+    nextDate.setDate(selectedDate.getDate() + 1); // end of that day
+
+    const filteredData = user.money[category].filter((entry) => {
+      const entryDate = new Date(entry.timestamp);
+      return entryDate >= selectedDate && entryDate < nextDate;
+    });
+
+    res.status(200).json({
+      data: filteredData,
+      msg: `Filtered ${category} entries for ${date}`,
+    });
+  } catch (err) {
+    res.status(500).json({ msg: err.message });
+  }
+});

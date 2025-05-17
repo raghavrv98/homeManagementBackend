@@ -5,13 +5,16 @@ const vegetableFruitSchema = new mongoose.Schema({
   name: { type: String, required: true },
   grams: { type: Number, required: true },
   costPerKg: { type: Number, required: true },
+  costWePaid: { type: Number, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
 // Milk schema
 const milkSchema = new mongoose.Schema({
-  packet: { type: String, required: true },
-  cost: { type: Number, required: true },
+  brand: { type: String, required: true },
+  costWePaid: { type: Number, required: true },
+  litre: { type: Number, required: true },
+  mrp: { type: Number, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
