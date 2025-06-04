@@ -48,20 +48,20 @@ const homeNeedsSchema = new mongoose.Schema({
 const petrolSchema = new mongoose.Schema({
   litre: { type: String, required: true },
   kmDriven: { type: Number, required: true },
-  cost: { type: String, required: true },
+  cost: { type: Number, required: true },
   costPerLitre: { type: Number, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
 // House Rent schema
 const houseRentSchema = new mongoose.Schema({
-  amount: { type: String, required: true },
+  amount: { type: Number, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
 // WiFi schema
 const wifiSchema = new mongoose.Schema({
-  amount: { type: String, required: true },
+  amount: { type: Number, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
