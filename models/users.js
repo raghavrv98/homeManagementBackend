@@ -46,7 +46,7 @@ const homeNeedsSchema = new mongoose.Schema({
 
 // Petrol schema
 const petrolSchema = new mongoose.Schema({
-  litre: { type: String, required: true },
+  litre: { type: Number, required: true },
   kmDriven: { type: Number, required: true },
   cost: { type: Number, required: true },
   costPerLitre: { type: Number, required: true },

@@ -157,3 +157,101 @@ router.get("/user/:username/:category/filter", async (req, res) => {
     res.status(500).json({ msg: err.message });
   }
 });
+
+//Edit entry API
+router.put("/user/:username/:category/:entryId", async (req, res) => {
+  const { username, category, entryId } = req.params;
+  const updatedData = req.body;
+
+  const validCategories = [
+    "vegetablesFruits",
+    "milk",
+    "kiranaStore",
+    "fastFood",
+    "homeNeeds",
+    "petrol",
+    "houseRent",
+    "wifi",
+    "outing",
+  ];
+
+  if (!validCategories.includes(category)) {
+    return res.status(400).json({ msg: "Invalid category name" });
+  }
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (!user) return res.status(404).json({ msg: "User not found" });
+
+    const categoryArray = user.money[category];
+    const entryIndex = categoryArray.findIndex(
+      (entry) => entry._id.toString() === entryId
+    );
+
+    if (entryIndex === -1) {
+      return res.status(404).json({ msg: "Entry not found" });
+    }
+
+    user.money[category][entryIndex] = {
+      ...categoryArray[entryIndex],
+      ...updatedData,
+    };
+
+    await user.save();
+
+    res.status(200).json({
+      data: user.money[category][entryIndex],
+      msg: `Entry updated successfully`,
+    });
+  } catch (err) {
+    res.status(500).json({ msg: err.message });
+  }
+});
+
+// Delete entry API
+
+router.delete("/user/:username/:category/:entryId", async (req, res) => {
+  const { username, category, entryId } = req.params;
+
+  const validCategories = [
+    "vegetablesFruits",
+    "milk",
+    "kiranaStore",
+    "fastFood",
+    "homeNeeds",
+    "petrol",
+    "houseRent",
+    "wifi",
+    "outing",
+  ];
+
+  if (!validCategories.includes(category)) {
+    return res.status(400).json({ msg: "Invalid category name" });
+  }
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (!user) return res.status(404).json({ msg: "User not found" });
+
+    const originalLength = user.money[category].length;
+
+    user.money[category] = user.money[category].filter(
+      (entry) => entry._id.toString() !== entryId
+    );
+
+    if (user.money[category].length === originalLength) {
+      return res.status(404).json({ msg: "Entry not found" });
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      data: user.money[category],
+      msg: `Entry deleted successfully`,
+    });
+  } catch (err) {
+    res.status(500).json({ msg: err.message });
+  }
+});
