@@ -65,6 +65,18 @@ const wifiSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
+// Electricity schema
+const electricitySchema = new mongoose.Schema({
+  amount: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// Gas schema
+const gasSchema = new mongoose.Schema({
+  amount: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
 // OutingSchema
 const outingSchema = new mongoose.Schema({
   timestamp: {
@@ -96,6 +108,8 @@ const moneySchema = new mongoose.Schema({
   houseRent: { type: [houseRentSchema], default: [] },
   wifi: { type: [wifiSchema], default: [] },
   outing: { type: [outingSchema], default: [] },
+  electricity: { type: [electricitySchema], default: [] },
+  gas: { type: [gasSchema], default: [] },
 });
 
 // User schema

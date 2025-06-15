@@ -68,6 +68,8 @@ router.post("/user/:username/:category", async (req, res) => {
     "houseRent",
     "wifi",
     "outing",
+    "electricity",
+    "gas",
   ];
 
   if (!validCategories.includes(category)) {
@@ -126,6 +128,8 @@ router.get("/user/:username/:category/filter", async (req, res) => {
     "houseRent",
     "wifi",
     "outing",
+    "electricity",
+    "gas",
   ];
 
   if (!validCategories.includes(category)) {
@@ -173,6 +177,8 @@ router.put("/user/:username/:category/:entryId", async (req, res) => {
     "houseRent",
     "wifi",
     "outing",
+    "electricity",
+    "gas",
   ];
 
   if (!validCategories.includes(category)) {
@@ -224,6 +230,8 @@ router.delete("/user/:username/:category/:entryId", async (req, res) => {
     "houseRent",
     "wifi",
     "outing",
+    "electricity",
+    "gas",
   ];
 
   if (!validCategories.includes(category)) {
