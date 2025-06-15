@@ -79,25 +79,51 @@ const gasSchema = new mongoose.Schema({
 
 // OutingSchema
 const outingSchema = new mongoose.Schema({
-  timestamp: {
-    type: Date,
-    default: Date.now, // Automatically set current date if not provided
-  },
-  place: {
-    type: String,
-    required: true,
-  },
-  cost: {
-    type: Number,
-    required: true,
-  },
-  numberOfDays: {
-    type: Number,
-    required: true,
-  },
+  timestamp: { type: Date, default: Date.now },
+  place: { type: String, required: true },
+  cost: { type: Number, required: true },
+  numberOfDays: { type: Number, required: true },
 });
 
-// Money schema
+// IncomeSchema
+const incomeSchema = new mongoose.Schema({
+  source: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// InvestmentSchema
+const investmentSchema = new mongoose.Schema({
+  cost: { type: Number, required: true },
+  type: { type: String, required: true }, // e.g., mutual fund, stock, SIP
+  timestamp: { type: Date, default: Date.now },
+});
+
+// LicSchema
+const licSchema = new mongoose.Schema({
+  policyNumber: { type: String, required: true },
+  cost: { type: Number, required: true },
+  maturityDate: { type: Date, required: true },
+  maturityAmount: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// ParentsSchema
+const parentsSchema = new mongoose.Schema({
+  reason: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// HomeloanSchema
+const homeloanSchema = new mongoose.Schema({
+  bankName: { type: String, required: true },
+  policyNumber: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// Money schema with all categories
 const moneySchema = new mongoose.Schema({
   vegetablesFruits: { type: [vegetableFruitSchema], default: [] },
   milk: { type: [milkSchema], default: [] },
@@ -110,6 +136,11 @@ const moneySchema = new mongoose.Schema({
   outing: { type: [outingSchema], default: [] },
   electricity: { type: [electricitySchema], default: [] },
   gas: { type: [gasSchema], default: [] },
+  income: { type: [incomeSchema], default: [] },
+  investment: { type: [investmentSchema], default: [] },
+  lic: { type: [licSchema], default: [] },
+  parents: { type: [parentsSchema], default: [] },
+  homeloan: { type: [homeloanSchema], default: [] },
 });
 
 // User schema

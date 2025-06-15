@@ -2,26 +2,37 @@ const express = require("express");
 const router = express.Router();
 const User = require("../../models/users");
 
+const validCategories = [
+  "vegetablesFruits",
+  "milk",
+  "kiranaStore",
+  "fastFood",
+  "homeNeeds",
+  "petrol",
+  "houseRent",
+  "wifi",
+  "outing",
+  "electricity",
+  "gas",
+  "income",
+  "investment",
+  "lic",
+  "parents",
+  "homeloan",
+];
+
 // Create a new user
 router.post("/user", async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    // Optional: Add validation here
     if (!username || !password) {
       return res
         .status(400)
         .json({ msg: "Username and password are required." });
     }
 
-    // Optional: Hash the password
-    // const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = new User({
-      username,
-      password, // use hashedPassword instead if hashing
-    });
-
+    const newUser = new User({ username, password });
     const savedUser = await newUser.save();
     res.status(201).json({ data: savedUser, msg: "User created successfully" });
   } catch (err) {
@@ -53,24 +64,10 @@ router.get("/users/:name", async (req, res) => {
   }
 });
 
-// Add a money category entry (vegetables, milk, etc.)
+// Add entry to category
 router.post("/user/:username/:category", async (req, res) => {
   const { username, category } = req.params;
   const entry = req.body;
-
-  const validCategories = [
-    "vegetablesFruits",
-    "milk",
-    "kiranaStore",
-    "fastFood",
-    "homeNeeds",
-    "petrol",
-    "houseRent",
-    "wifi",
-    "outing",
-    "electricity",
-    "gas",
-  ];
 
   if (!validCategories.includes(category)) {
     return res.status(400).json({ msg: "Invalid category name" });
@@ -78,7 +75,6 @@ router.post("/user/:username/:category", async (req, res) => {
 
   try {
     const user = await User.findOne({ username });
-
     if (!user) return res.status(404).json({ msg: "User not found" });
 
     user.money[category].push(entry);
@@ -99,11 +95,9 @@ router.get("/user/:username/:category", async (req, res) => {
 
   try {
     const user = await User.findOne({ username });
-
     if (!user) return res.status(404).json({ msg: "User not found" });
 
     const entries = user.money[category];
-
     if (!entries) return res.status(400).json({ msg: "Invalid category" });
 
     res.status(200).json({ data: entries, msg: `${category} entries fetched` });
@@ -112,33 +106,15 @@ router.get("/user/:username/:category", async (req, res) => {
   }
 });
 
-module.exports = router;
-
+// Filter entries by date
 router.get("/user/:username/:category/filter", async (req, res) => {
   const { username, category } = req.params;
   const { date } = req.query;
 
-  const validCategories = [
-    "vegetablesFruits",
-    "milk",
-    "kiranaStore",
-    "fastFood",
-    "homeNeeds",
-    "petrol",
-    "houseRent",
-    "wifi",
-    "outing",
-    "electricity",
-    "gas",
-  ];
-
   if (!validCategories.includes(category)) {
     return res.status(400).json({ msg: "Invalid category name" });
   }
-
-  if (!date) {
-    return res.status(400).json({ msg: "Date is required" });
-  }
+  if (!date) return res.status(400).json({ msg: "Date is required" });
 
   try {
     const user = await User.findOne({ username });
@@ -146,7 +122,7 @@ router.get("/user/:username/:category/filter", async (req, res) => {
 
     const selectedDate = new Date(date);
     const nextDate = new Date(selectedDate);
-    nextDate.setDate(selectedDate.getDate() + 1); // end of that day
+    nextDate.setDate(selectedDate.getDate() + 1);
 
     const filteredData = user.money[category].filter((entry) => {
       const entryDate = new Date(entry.timestamp);
@@ -162,24 +138,10 @@ router.get("/user/:username/:category/filter", async (req, res) => {
   }
 });
 
-//Edit entry API
+// Edit entry
 router.put("/user/:username/:category/:entryId", async (req, res) => {
   const { username, category, entryId } = req.params;
   const updatedData = req.body;
-
-  const validCategories = [
-    "vegetablesFruits",
-    "milk",
-    "kiranaStore",
-    "fastFood",
-    "homeNeeds",
-    "petrol",
-    "houseRent",
-    "wifi",
-    "outing",
-    "electricity",
-    "gas",
-  ];
 
   if (!validCategories.includes(category)) {
     return res.status(400).json({ msg: "Invalid category name" });
@@ -187,7 +149,6 @@ router.put("/user/:username/:category/:entryId", async (req, res) => {
 
   try {
     const user = await User.findOne({ username });
-
     if (!user) return res.status(404).json({ msg: "User not found" });
 
     const categoryArray = user.money[category];
@@ -195,9 +156,8 @@ router.put("/user/:username/:category/:entryId", async (req, res) => {
       (entry) => entry._id.toString() === entryId
     );
 
-    if (entryIndex === -1) {
+    if (entryIndex === -1)
       return res.status(404).json({ msg: "Entry not found" });
-    }
 
     user.money[category][entryIndex] = {
       ...categoryArray[entryIndex],
@@ -215,24 +175,9 @@ router.put("/user/:username/:category/:entryId", async (req, res) => {
   }
 });
 
-// Delete entry API
-
+// Delete entry
 router.delete("/user/:username/:category/:entryId", async (req, res) => {
   const { username, category, entryId } = req.params;
-
-  const validCategories = [
-    "vegetablesFruits",
-    "milk",
-    "kiranaStore",
-    "fastFood",
-    "homeNeeds",
-    "petrol",
-    "houseRent",
-    "wifi",
-    "outing",
-    "electricity",
-    "gas",
-  ];
 
   if (!validCategories.includes(category)) {
     return res.status(400).json({ msg: "Invalid category name" });
@@ -240,11 +185,9 @@ router.delete("/user/:username/:category/:entryId", async (req, res) => {
 
   try {
     const user = await User.findOne({ username });
-
     if (!user) return res.status(404).json({ msg: "User not found" });
 
     const originalLength = user.money[category].length;
-
     user.money[category] = user.money[category].filter(
       (entry) => entry._id.toString() !== entryId
     );
@@ -263,3 +206,5 @@ router.delete("/user/:username/:category/:entryId", async (req, res) => {
     res.status(500).json({ msg: err.message });
   }
 });
+
+module.exports = router;
