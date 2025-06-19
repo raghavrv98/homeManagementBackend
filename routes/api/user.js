@@ -19,6 +19,10 @@ const validCategories = [
   "lic",
   "parents",
   "homeloan",
+  "personalExpense",
+  "giftToAmisha",
+  "advityaFlatCost",
+  "mumbaiHomeSetupCost"
 ];
 
 // Create a new user

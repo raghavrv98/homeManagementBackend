@@ -123,6 +123,36 @@ const homeloanSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
+// giftToAmishaSchema
+const giftToAmishaSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// personalExpenseSchema
+const personalExpenseSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// advityaFlatCostSchema
+const advityaFlatCostSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// mumbaiHomeSetupCostSchema
+const mumbaiHomeSetupCostSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  place: { type: String },
+  howOld: { type: String },
+  timestamp: { type: Date, default: Date.now },
+});
+
 // Money schema with all categories
 const moneySchema = new mongoose.Schema({
   vegetablesFruits: { type: [vegetableFruitSchema], default: [] },
@@ -141,6 +171,10 @@ const moneySchema = new mongoose.Schema({
   lic: { type: [licSchema], default: [] },
   parents: { type: [parentsSchema], default: [] },
   homeloan: { type: [homeloanSchema], default: [] },
+  personalExpense: { type: [personalExpenseSchema], default: [] },
+  giftToAmisha: { type: [giftToAmishaSchema], default: [] },
+  advityaFlatCost: { type: [advityaFlatCostSchema], default: [] },
+  mumbaiHomeSetupCost: { type: [mumbaiHomeSetupCostSchema], default: [] },
 });
 
 // User schema
