@@ -153,6 +153,12 @@ const mumbaiHomeSetupCostSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
+// Cred Loan Repay schema
+const credLoanRepaySchema = new mongoose.Schema({
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
 // Money schema with all categories
 const moneySchema = new mongoose.Schema({
   vegetablesFruits: { type: [vegetableFruitSchema], default: [] },
@@ -166,6 +172,7 @@ const moneySchema = new mongoose.Schema({
   outing: { type: [outingSchema], default: [] },
   electricity: { type: [electricitySchema], default: [] },
   gas: { type: [gasSchema], default: [] },
+  credLoanRepay: { type: [credLoanRepaySchema], default: [] },
   income: { type: [incomeSchema], default: [] },
   investment: { type: [investmentSchema], default: [] },
   lic: { type: [licSchema], default: [] },
