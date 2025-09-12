@@ -23,7 +23,7 @@ const validCategories = [
   "giftToAmisha",
   "advityaFlatCost",
   "mumbaiHomeSetupCost",
-  "credLoanRepay"
+  "credLoanRepay",
 ];
 
 // Create a new user

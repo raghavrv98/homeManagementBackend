@@ -102,6 +102,7 @@ const investmentSchema = new mongoose.Schema({
 // LicSchema
 const licSchema = new mongoose.Schema({
   policyNumber: { type: String, required: true },
+  memberName: { type: String, required: false },
   cost: { type: Number, required: true },
   maturityDate: { type: Date, required: true },
   maturityAmount: { type: Number, required: true },
