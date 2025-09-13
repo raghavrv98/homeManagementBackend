@@ -20,10 +20,14 @@ const validCategories = [
   "parents",
   "homeloan",
   "personalExpense",
-  "giftToAmisha",
   "advityaFlatCost",
   "mumbaiHomeSetupCost",
   "credLoanRepay",
+  "amishaExpenses",
+  "amishaInvestment",
+  "amishaIncome",
+  "amishaRepay",
+  "amishaGiftCost",
 ];
 
 // Create a new user

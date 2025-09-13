@@ -1,5 +1,40 @@
 const mongoose = require("mongoose");
 
+// amishaIncomeSchema
+const amishaIncomeSchema = new mongoose.Schema({
+  source: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// amishaInvestmentSchema
+const amishaInvestmentSchema = new mongoose.Schema({
+  cost: { type: Number, required: true },
+  fromIncome: { type: String, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// amishaExpenseSchema
+const amishaExpenseSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// amishaRepaySchema
+const amishaRepaySchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// amishaGiftCostSchema
+const amishaGiftCostSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
 // Vegetables/Fruits schema
 const vegetableFruitSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -124,13 +159,6 @@ const homeloanSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-// giftToAmishaSchema
-const giftToAmishaSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  cost: { type: Number, required: true },
-  timestamp: { type: Date, default: Date.now },
-});
-
 // personalExpenseSchema
 const personalExpenseSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -180,9 +208,13 @@ const moneySchema = new mongoose.Schema({
   parents: { type: [parentsSchema], default: [] },
   homeloan: { type: [homeloanSchema], default: [] },
   personalExpense: { type: [personalExpenseSchema], default: [] },
-  giftToAmisha: { type: [giftToAmishaSchema], default: [] },
   advityaFlatCost: { type: [advityaFlatCostSchema], default: [] },
   mumbaiHomeSetupCost: { type: [mumbaiHomeSetupCostSchema], default: [] },
+  amishaIncome: { type: [amishaIncomeSchema], default: [] },
+  amishaInvestment: { type: [amishaInvestmentSchema], default: [] },
+  amishaExpenses: { type: [amishaExpenseSchema], default: [] },
+  amishaRepay: { type: [amishaRepaySchema], default: [] },
+  amishaGiftCost: { type: [amishaGiftCostSchema], default: [] },
 });
 
 // User schema
