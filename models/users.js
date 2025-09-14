@@ -166,6 +166,20 @@ const personalExpenseSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
+// mumbaiMiscSchema
+const mumbaiMiscSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+// faridabadMiscSchema
+const faridabadMiscSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
 // advityaFlatCostSchema
 const advityaFlatCostSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -208,6 +222,8 @@ const moneySchema = new mongoose.Schema({
   parents: { type: [parentsSchema], default: [] },
   homeloan: { type: [homeloanSchema], default: [] },
   personalExpense: { type: [personalExpenseSchema], default: [] },
+  faridabadMisc: { type: [faridabadMiscSchema], default: [] },
+  mumbaiMisc: { type: [mumbaiMiscSchema], default: [] },
   advityaFlatCost: { type: [advityaFlatCostSchema], default: [] },
   mumbaiHomeSetupCost: { type: [mumbaiHomeSetupCostSchema], default: [] },
   amishaIncome: { type: [amishaIncomeSchema], default: [] },

@@ -28,6 +28,8 @@ const validCategories = [
   "amishaIncome",
   "amishaRepay",
   "amishaGiftCost",
+  "mumbaiMisc",
+  "faridabadMisc",
 ];
 
 // Create a new user
